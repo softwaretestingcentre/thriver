@@ -1,22 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/create-next-app).
+# Thriver Web Application
+
+This is a Next.js TypeScript web app for multi-user lifestyle, diet, and exercise tracking. Features include:
+- User authentication
+- Personal dashboard
+- Goal setting
+- Data tracking (lifestyle, diet, exercise)
+- Progress charts
+- Notifications
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Project Structure
+- `/src` - Main source code
+- `/app` - App router pages and API
+- `/components` - React components
+- `/styles` - Tailwind CSS styles
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/route.ts`. The page auto-updates as you edit the file.
+## Customization
+Add features and integrations as needed for authentication, charting, and notifications.
 
 ## Learn More
 
@@ -38,3 +49,18 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 This directory contains example API routes for the headless API app.
 
 For more details, see [route.js file convention](https://nextjs.org/docs/app/api-reference/file-conventions/route).
+
+
+
+## Next Steps
+> NextAuth.js is now set up with a Prisma adapter and Google/Email providers.
+
+> What’s next:
+
+> Add your real Google and email credentials to .env.
+
+> (Optional) Add more providers if needed.
+
+> Implement sign-in/sign-out UI and protect dashboard routes.
+
+> Would you like to scaffold the authentication UI and route protection next?
