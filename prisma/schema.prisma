@@ -22,6 +22,13 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  goals         Goal[]
+  dietEntries   DietEntry[]
+  exerciseEntries ExerciseEntry[]
+  lifestyleEntries LifestyleEntry[]
+  notifications Notification[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Account {
@@ -56,4 +63,78 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Goal {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  category    String   // "diet", "exercise", "lifestyle"
+  targetValue Float?
+  currentValue Float?
+  unit        String?
+  targetDate  DateTime?
+  status      String   @default("active") // "active", "completed", "abandoned"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model DietEntry {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date        DateTime @default(now())
+  mealType    String   // "breakfast", "lunch", "dinner", "snack"
+  foodName    String
+  calories    Float?
+  protein     Float?
+  carbs       Float?
+  fat         Float?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ExerciseEntry {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date        DateTime @default(now())
+  exerciseType String  // "cardio", "strength", "flexibility", "sports"
+  name        String
+  duration    Int?     // in minutes
+  calories    Float?
+  distance    Float?   // in km or miles
+  sets        Int?
+  reps        Int?
+  weight      Float?   // in kg or lbs
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model LifestyleEntry {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date        DateTime @default(now())
+  category    String   // "sleep", "water", "mood", "stress", "weight"
+  value       Float
+  unit        String?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Notification {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  message     String
+  type        String   @default("info") // "info", "success", "warning", "error"
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
 }

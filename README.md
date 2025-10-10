@@ -1,66 +1,86 @@
 # Thriver Web Application
 
-This is a Next.js TypeScript web app for multi-user lifestyle, diet, and exercise tracking. Features include:
-- User authentication
-- Personal dashboard
-- Goal setting
-- Data tracking (lifestyle, diet, exercise)
-- Progress charts
-- Notifications
+A comprehensive Next.js TypeScript web application for multi-user lifestyle, diet, and exercise tracking. Built with Next.js 15, Prisma, NextAuth, and Recharts.
 
-## Getting Started
+## ✨ Features
+
+- **🔐 User Authentication**: Secure authentication with NextAuth supporting Google OAuth and Email providers
+- **📊 Personal Dashboard**: Comprehensive overview of user wellness with statistics and charts
+- **🎯 Goal Setting**: Create and track diet, exercise, and lifestyle goals with progress monitoring
+- **📝 Data Tracking**:
+  - **🍎 Diet Tracking**: Log meals with nutritional information (calories, protein, carbs, fat)
+  - **💪 Exercise Tracking**: Record workouts including cardio, strength training, flexibility, and sports
+  - **❤️ Lifestyle Tracking**: Monitor sleep, water intake, mood, stress levels, and weight
+- **📈 Progress Charts**: Visual representations of data using Recharts (line charts, bar charts)
+- **🔔 Notifications**: Stay updated with important wellness milestones and reminders
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 20.x or higher
+- PostgreSQL database
+- npm or yarn
+
+### Installation
 
 1. Install dependencies:
-   ```bash
+   \`\`\`bash
    npm install
-   ```
-2. Run the development server:
-   ```bash
+   \`\`\`
+
+2. Set up environment variables:
+   \`\`\`bash
+   cp .env.example .env
+   \`\`\`
+   
+   Edit \`.env\` with your configuration.
+
+3. Set up the database:
+   \`\`\`bash
+   npx prisma migrate dev
+   npx prisma generate
+   \`\`\`
+
+4. Run the development server:
+   \`\`\`bash
    npm run dev
-   ```
-3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+   \`\`\`
 
-## Project Structure
-- `/src` - Main source code
-- `/app` - App router pages and API
-- `/components` - React components
-- `/styles` - Tailwind CSS styles
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Customization
-Add features and integrations as needed for authentication, charting, and notifications.
+## 📁 Project Structure
 
-## Learn More
+- \`/src/app\` - Next.js pages and API routes
+- \`/src/components\` - Reusable React components
+- \`/src/lib\` - Utility functions and shared code
+- \`/prisma\` - Database schema and migrations
 
-To learn more about Next.js, take a look at the following resources:
+## 💡 Usage
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Sign In**: Click "Sign In" and authenticate with Google or Email
+2. **Dashboard**: View your wellness overview and recent activity
+3. **Track**: Navigate to Diet, Exercise, or Lifestyle pages to log entries
+4. **Set Goals**: Create and monitor your wellness goals
+5. **Notifications**: Stay updated with your progress
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Tech Stack
 
-## Deploy on Vercel
+- Next.js 15.4.1
+- TypeScript
+- Prisma (PostgreSQL)
+- NextAuth.js
+- Tailwind CSS
+- Recharts
+- date-fns
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔧 Development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+\`\`\`bash
+npm run dev      # Start development server
+npm run build    # Build for production
+npm start        # Start production server
+\`\`\`
 
-## API Routes
+## 📝 License
 
-This directory contains example API routes for the headless API app.
-
-For more details, see [route.js file convention](https://nextjs.org/docs/app/api-reference/file-conventions/route).
-
-
-
-## Next Steps
-> NextAuth.js is now set up with a Prisma adapter and Google/Email providers.
-
-> What’s next:
-
-> Add your real Google and email credentials to .env.
-
-> (Optional) Add more providers if needed.
-
-> Implement sign-in/sign-out UI and protect dashboard routes.
-
-> Would you like to scaffold the authentication UI and route protection next?
+Private project - All rights reserved
