@@ -7,15 +7,30 @@ import ExerciseEntriesList from '@/components/tracking/ExerciseEntriesList';
 import ExerciseChart from '@/components/charts/ExerciseChart';
 import { subDays } from 'date-fns';
 
-export default function ExerciseTrackingPage() {
-  const dbUser = {
-    name: "Demo User",
-    email: "demo@thriver.com",
-    image: null,
-    exerciseEntries: [],
-    notifications: [],
-  };
-  const recentEntries: any[] = [];
+export default async function ExerciseTrackingPage() {
+  const user = await getCurrentUser();
+  if (!user?.email) {
+    redirect('/api/auth/signin');
+  }
+  const dbUser = await prisma.user.findUnique({
+    where: { email: user.email },
+    include: {
+      exerciseEntries: {
+        orderBy: { date: 'desc' },
+        take: 50,
+      },
+      notifications: {
+        where: { read: false },
+      },
+    },
+  });
+  if (!dbUser) {
+    redirect('/api/auth/signin');
+  }
+  const sevenDaysAgo = subDays(new Date(), 7);
+  const recentEntries = dbUser.exerciseEntries.filter(
+    entry => new Date(entry.date) >= sevenDaysAgo
+  );
   return (
     <DashboardLayout user={dbUser} unreadNotifications={dbUser.notifications.length}>
       <div className="p-6">

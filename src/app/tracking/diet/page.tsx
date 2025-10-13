@@ -7,15 +7,30 @@ import DietEntriesList from '@/components/tracking/DietEntriesList';
 import DietChart from '@/components/charts/DietChart';
 import { subDays } from 'date-fns';
 
-export default function DietTrackingPage() {
-  const dbUser = {
-    name: "Demo User",
-    email: "demo@thriver.com",
-    image: null,
-    dietEntries: [],
-    notifications: [],
-  };
-  const recentEntries: any[] = [];
+export default async function DietTrackingPage() {
+  const user = await getCurrentUser();
+  if (!user?.email) {
+    redirect('/api/auth/signin');
+  }
+  const dbUser = await prisma.user.findUnique({
+    where: { email: user.email },
+    include: {
+      dietEntries: {
+        orderBy: { date: 'desc' },
+        take: 50,
+      },
+      notifications: {
+        where: { read: false },
+      },
+    },
+  });
+  if (!dbUser) {
+    redirect('/api/auth/signin');
+  }
+  const sevenDaysAgo = subDays(new Date(), 7);
+  const recentEntries = dbUser.dietEntries.filter(
+    entry => new Date(entry.date) >= sevenDaysAgo
+  );
   return (
     <DashboardLayout user={dbUser} unreadNotifications={dbUser.notifications.length}>
       <div className="p-6">

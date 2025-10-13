@@ -7,15 +7,30 @@ import LifestyleEntriesList from '@/components/tracking/LifestyleEntriesList';
 import LifestyleChart from '@/components/charts/LifestyleChart';
 import { subDays } from 'date-fns';
 
-export default function LifestyleTrackingPage() {
-  const dbUser = {
-    name: "Demo User",
-    email: "demo@thriver.com",
-    image: null,
-    lifestyleEntries: [],
-    notifications: [],
-  };
-  const recentEntries: any[] = [];
+export default async function LifestyleTrackingPage() {
+  const user = await getCurrentUser();
+  if (!user?.email) {
+    redirect('/api/auth/signin');
+  }
+  const dbUser = await prisma.user.findUnique({
+    where: { email: user.email },
+    include: {
+      lifestyleEntries: {
+        orderBy: { date: 'desc' },
+        take: 50,
+      },
+      notifications: {
+        where: { read: false },
+      },
+    },
+  });
+  if (!dbUser) {
+    redirect('/api/auth/signin');
+  }
+  const sevenDaysAgo = subDays(new Date(), 7);
+  const recentEntries = dbUser.lifestyleEntries.filter(
+    entry => new Date(entry.date) >= sevenDaysAgo
+  );
   return (
     <DashboardLayout user={dbUser} unreadNotifications={dbUser.notifications.length}>
       <div className="p-6">

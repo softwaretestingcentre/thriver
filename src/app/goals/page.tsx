@@ -5,16 +5,27 @@ import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import GoalsList from '@/components/goals/GoalsList';
 import CreateGoalButton from '@/components/goals/CreateGoalButton';
 
-export default function GoalsPage() {
-  const dbUser = {
-    name: "Demo User",
-    email: "demo@thriver.com",
-    image: null,
-    goals: [],
-    notifications: [],
-  };
+export default async function GoalsPage() {
+  const user = await getCurrentUser();
+  if (!user?.email) {
+    redirect('/api/auth/signin');
+  }
+  const dbUser = await prisma.user.findUnique({
+    where: { email: user.email },
+    include: {
+      goals: {
+        orderBy: { createdAt: 'desc' },
+      },
+      notifications: {
+        where: { read: false },
+      },
+    },
+  });
+  if (!dbUser) {
+    redirect('/api/auth/signin');
+  }
   return (
-    <DashboardLayout user={dbUser} unreadNotifications={0}>
+    <DashboardLayout user={dbUser} unreadNotifications={dbUser.notifications.length}>
       <div className="p-6">
         <div className="flex justify-between items-center mb-8">
           <div>
