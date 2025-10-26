@@ -1,0 +1,153 @@
+openapi: 3.0.0
+info:
+  title: Lifestyle Tracker API
+  version: 1.0.0
+paths:
+  /auth/signup:
+    post:
+      summary: Create a new user account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Account created
+        '400':
+          description: Invalid input
+  /auth/signin:
+    post:
+      summary: Sign in user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Signed in
+        '401':
+          description: Unauthorized
+  /dashboard:
+    get:
+      summary: Get user dashboard data
+      responses:
+        '200':
+          description: Dashboard data
+        '401':
+          description: Unauthorized
+  /goals:
+    post:
+      summary: Create a new goal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                target:
+                  type: string
+                deadline:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: Goal created
+        '400':
+          description: Invalid input
+    get:
+      summary: List user goals
+      responses:
+        '200':
+          description: List of goals
+        '401':
+          description: Unauthorized
+  /goals/{id}:
+    put:
+      summary: Update a goal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                target:
+                  type: string
+                deadline:
+                  type: string
+                  format: date
+      responses:
+        '200':
+          description: Goal updated
+        '400':
+          description: Invalid input
+        '404':
+          description: Goal not found
+  /data:
+    post:
+      summary: Log new data entry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                value:
+                  type: string
+                timestamp:
+                  type: string
+                  format: date-time
+      responses:
+        '201':
+          description: Data entry logged
+        '400':
+          description: Invalid input
+    get:
+      summary: List user data entries
+      responses:
+        '200':
+          description: List of data entries
+        '401':
+          description: Unauthorized
+  /charts:
+    get:
+      summary: Get progress charts
+      responses:
+        '200':
+          description: Chart data
+        '401':
+          description: Unauthorized
+  /notifications:
+    get:
+      summary: List user notifications
+      responses:
+        '200':
+          description: List of notifications
+        '401':
+          description: Unauthorized
