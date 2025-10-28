@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const body = await request.json();
-  const { type, value, date } = body;
+  const { type, value, timestamp } = body;
   const user = await prisma.user.findUnique({ where: { email: session.user.email } });
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     data: {
       type,
       value,
-      date,
+      timestamp,
       userId: user.id,
     },
   });
@@ -48,10 +48,10 @@ export async function PUT(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const body = await request.json();
-  const { id, type, value, date } = body;
+  const { id, type, value, timestamp } = body;
   const entry = await prisma.dataEntry.update({
     where: { id },
-    data: { type, value, date },
+    data: { type, value, timestamp },
   });
   return NextResponse.json({ entry });
 }

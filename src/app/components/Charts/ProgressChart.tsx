@@ -48,4 +48,3 @@ export default function ProgressChart() {
 function t(str: string) {
   return str;
 }
-}

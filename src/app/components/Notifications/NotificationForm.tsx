@@ -42,6 +42,5 @@ const NotificationForm: React.FC<NotificationFormProps> = ({ onCreate }) => {
 function t(str: string) {
   return str;
 }
-};
 
 export default NotificationForm;

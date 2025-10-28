@@ -66,4 +66,3 @@ export default function DataEntryForm({ onEntryCreated }: { onEntryCreated?: () 
 function t(str: string) {
   return str;
 }
-}
