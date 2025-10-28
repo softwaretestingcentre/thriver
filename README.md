@@ -1,12 +1,12 @@
 # Thriver Web Application
 
 This is a Next.js TypeScript web app for multi-user lifestyle, diet, and exercise tracking. Features include:
-- User authentication
+- User authentication (NextAuth.js, Google/email)
 - Personal dashboard
-- Goal setting
+- Goal setting (CRUD)
 - Data tracking (lifestyle, diet, exercise)
-- Progress charts
-- Notifications
+- Progress charts (Chart.js)
+- Notifications (API + UI)
 
 
 ## Quickstart & Setup
@@ -46,9 +46,9 @@ This is a Next.js TypeScript web app for multi-user lifestyle, diet, and exercis
 ### API Reference
 - See `specs/001-lifestyle-tracker/contracts/openapi.yaml` for endpoint details.
 
-### Next Steps
-- Implement authentication UI and route protection
-- Build dashboard, goal, data tracking, chart, and notification features
+### Completed Features
+- Authentication UI and route protection
+- Dashboard, goal, data tracking, chart, and notification features
 
 ## Project Structure
 - `/src` - Main source code
@@ -57,7 +57,7 @@ This is a Next.js TypeScript web app for multi-user lifestyle, diet, and exercis
 - `/styles` - Tailwind CSS styles
 
 ## Customization
-Add features and integrations as needed for authentication, charting, and notifications.
+You can extend Thriver with additional integrations, localization, accessibility, and custom chart types as needed.
 
 ## Learn More
 
@@ -82,15 +82,5 @@ For more details, see [route.js file convention](https://nextjs.org/docs/app/api
 
 
 
-## Next Steps
-> NextAuth.js is now set up with a Prisma adapter and Google/Email providers.
-
-> What’s next:
-
-> Add your real Google and email credentials to .env.
-
-> (Optional) Add more providers if needed.
-
-> Implement sign-in/sign-out UI and protect dashboard routes.
-
-> Would you like to scaffold the authentication UI and route protection next?
+## Status
+All major features and tests are implemented. See `specs/001-lifestyle-tracker/tasks.md` for progress tracking.

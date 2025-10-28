@@ -35,6 +35,6 @@
 ## API Reference
 - See `specs/001-lifestyle-tracker/contracts/openapi.yaml` for endpoint details.
 
-## Next Steps
-- Implement authentication UI and route protection
-- Build dashboard, goal, data tracking, chart, and notification features
+## Completed Features
+- Authentication UI and route protection
+- Dashboard, goal, data tracking, chart, and notification features
